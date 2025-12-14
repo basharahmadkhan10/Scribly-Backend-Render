@@ -2,7 +2,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash-001", // Updated model name
+  apiVersion: "v1" // <-- ADD THIS LINE. Use "v1beta" if "v1" fails.
+});
 
 export const summarizeText = async (text) => {
   try {
