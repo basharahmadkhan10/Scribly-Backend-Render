@@ -5,7 +5,7 @@ dotenv.config();
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = "http://localhost:9000/auth/google/callback";
+const REDIRECT_URI = "https://scribly-backend-render.onrender.com/auth/google/callback";
 
 // Create OAuth2 client
 export const oauth2Client = new google.auth.OAuth2(
@@ -23,3 +23,4 @@ export const getAuthUrl = () => {
     scope: scopes,
   });
 };
+
