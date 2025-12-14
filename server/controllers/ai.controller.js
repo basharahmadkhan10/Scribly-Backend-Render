@@ -1,25 +1,45 @@
-import { generateAI } from "../services/gemini.service.js";
+import { summarizeText, improveText, changeTone } from "../services/gemini.service.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiError } from "../utils/ApiError.js";
 
 export const summarize = async (req, res) => {
   const { text } = req.body;
-  const result = await generateAI(
-    `Summarize this text in 2–3 lines:\n\n${text}`
+
+  if (!text || text.trim().length < 10) {
+    throw new ApiError(400, "Text too short for summarization");
+  }
+
+  const summary = await summarizeText(text);
+
+  res.status(200).json(
+    new ApiResponse(200, { result: summary }, "Summarized successfully")
   );
-  res.json({ result });
 };
 
 export const improve = async (req, res) => {
   const { text } = req.body;
-  const result = await generateAI(
-    `Improve grammar and clarity:\n\n${text}`
+
+  if (!text || text.trim().length < 10) {
+    throw new ApiError(400, "Text too short for improvement");
+  }
+
+  const improved = await improveText(text);
+
+  res.status(200).json(
+    new ApiResponse(200, { result: improved }, "Improved successfully")
   );
-  res.json({ result });
 };
 
 export const tone = async (req, res) => {
   const { text, tone } = req.body;
-  const result = await generateAI(
-    `Rewrite in ${tone} tone:\n\n${text}`
+
+  if (!text || !tone) {
+    throw new ApiError(400, "Text and tone are required");
+  }
+
+  const tonedText = await changeTone(text, tone);
+
+  res.status(200).json(
+    new ApiResponse(200, { result: tonedText }, "Tone changed successfully")
   );
-  res.json({ result });
 };
