@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { google } from "googleapis";
 import { oauth2Client, getAuthUrl } from "./googleAuth.js";
 import { User } from "./models/user.models.js";
+import aiRoutes from "./routes/ai.routes.js";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,7 @@ import noteRouter from "./routes/notes.route.js";
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/notes", noteRouter);
+app.use("/api/ai", aiRoutes);
 
 // 1. Route to start Google Auth
 app.get("/auth/google", (req, res) => {
@@ -207,4 +209,5 @@ app.post("/google/create-event", async (req, res) => {
 });
 
 export { app };
+
 
