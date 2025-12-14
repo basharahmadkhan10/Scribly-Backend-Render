@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://scribly-frontend-vercel.vercel.app",
     credentials: true,
   })
 );
@@ -207,3 +207,4 @@ app.post("/google/create-event", async (req, res) => {
 });
 
 export { app };
+
